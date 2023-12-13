@@ -105,20 +105,28 @@
    <!-- myapp/templates/myapp/success.html -->
    <h1>Form submitted successfully!</h1>
    ```
-7. add myapp in `cwp/settings.py`
+
+
+7. **Add the App to `INSTALLED_APPS` in `settings.py`:**
+
+   Open the `cwp/settings.py` file and make sure that your app is included in the `INSTALLED_APPS` list. Add your app, in this case, "myapp", to the list:
+
    ```python
- 
-  INSTALLED_APPS = [
-      "django.contrib.admin",
-      "django.contrib.auth",
-      "django.contrib.contenttypes",
-      "django.contrib.sessions",
-      "django.contrib.messages",
-      "django.contrib.staticfiles",
-      "myapp",
-  ]
-  ```
-   
+   # cwp/settings.py
+
+   INSTALLED_APPS = [
+       "django.contrib.admin",
+       "django.contrib.auth",
+       "django.contrib.contenttypes",
+       "django.contrib.sessions",
+       "django.contrib.messages",
+       "django.contrib.staticfiles",
+       "myapp",
+   ]
+   ```
+
+   This step ensures that Django recognizes your app and includes it in various processes, including URL routing and database migrations.
+
 
 8. **Run Migrations:**
    Run Django migrations to create the database table:
@@ -128,7 +136,7 @@
    python manage.py migrate
    ```
 
-8. **Run the Development Server:**
+9. **Run the Development Server:**
    Start the development server:
 
    ```bash
