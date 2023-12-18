@@ -1,0 +1,9 @@
+<!-- myapp/templates/myapp/product_detail.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>{{ product.name }}</h2>
+  <p>{{ product.description }}</p>
+  <a href="{% url 'product_list' %}" class="btn btn-secondary">Back to Product List</a>
+{% endblock %}
