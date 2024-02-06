@@ -1,122 +1,100 @@
-# Django Templates
+# Template
 
-Django templates are used to generate HTML dynamically in your web applications. They allow you to embed variables, control structures, and template tags within HTML files. Here's an overview of how Django templates work:
+### Step 1: Create a Django Project
 
-### Template Structure:
+1.1 Open your terminal or command prompt.
 
-1. **Create a Templates Directory:**
-   In each Django app, you should have a `templates` directory to store your HTML templates. Django will look for templates within this directory.
+1.2 Navigate to the desired directory where you want to create your project.
 
-   ```plaintext
-   myapp/
-   ├── templates/
-   │   └── myapp/
-   │       └── index.html
-   └── ...
-   ```
+1.3 Run the following command to create a new Django project named `p4n`:
 
-   In the example above, there's a `templates` directory inside the `myapp` directory, and the template file is named `index.html`.
+```bash
+django-admin startproject p4n
+```
 
-### Embedding Variables:
+1.4 Change into the project directory:
 
-2. **Embed Variables in Templates:**
-   In your HTML templates, you can embed variables using double curly braces `{{ variable_name }}`. For example:
+```bash
+cd p4n
+```
 
-   ```html
-   <!-- templates/myapp/index.html -->
+### Step 2: Create an App and Template
 
-   <h1>{{ title }}</h1>
-   <p>{{ content }}</p>
-   ```
+2.1 Inside the `p4n` project directory, run the following command to create a new Django app named `members`:
 
-   In this example, `title` and `content` are variables that will be passed from the Django view.
+```bash
+python manage.py startapp members
+```
 
-### Control Structures:
+2.2 Open the `members` folder and create a `templates` folder inside it.
 
-3. **Use Control Structures:**
-   Django templates support control structures such as `if`, `for`, and `block`. For example:
+2.3 Inside the `templates` folder, create an HTML file named `myfirst.html`.
 
-   ```html
-   <!-- templates/myapp/index.html -->
+2.4 Open `myfirst.html` and insert the following HTML code:
 
-   {% if user.is_authenticated %}
-       <p>Welcome, {{ user.username }}!</p>
-   {% else %}
-       <p>Please log in.</p>
-   {% endif %}
-   ```
+```html
+<!DOCTYPE html>
+<html>
+<body>
 
-   In this example, the template checks if the user is authenticated and displays a personalized message accordingly.
+<h1>Hello World!</h1>
+<p>Welcome to my first Django project!</p>
 
-### Template Tags:
+</body>
+</html>
+```
 
-4. **Use Template Tags:**
-   Django provides template tags enclosed in `{% %}` for more complex logic. For example:
+### Step 3: Modify the View
 
-   ```html
-   <!-- templates/myapp/index.html -->
+3.1 Open the `views.py` file inside the `members` folder.
 
-   <ul>
-       {% for item in items %}
-           <li>{{ item }}</li>
-       {% endfor %}
-   </ul>
-   ```
+3.2 Replace the existing `members` view with the following code:
 
-   Here, the template iterates through a list of items and generates an HTML list.
+```python
+from django.http import HttpResponse
+from django.template import loader
 
-### Include Templates:
+def members(request):
+    template = loader.get_template('myfirst.html')
+    return HttpResponse(template.render())
+```
 
-5. **Include Templates:**
-   You can include other templates using the `{% include %}` tag. For example:
+### Step 4: Change Settings
 
-   ```html
-   <!-- templates/myapp/base.html -->
+4.1 Open the `settings.py` file inside the `p4n` folder.
 
-   <!DOCTYPE html>
-   <html lang="en">
-   <head>
-       <meta charset="UTF-8">
-       <title>{% block title %}My Site{% endblock %}</title>
-   </head>
-   <body>
-       {% block content %}{% endblock %}
-   </body>
-   </html>
-   ```
+4.2 Locate the `INSTALLED_APPS` list and add `'members'` to it:
 
-   In this example, the `base.html` template includes blocks (`{% block %}`) that can be overridden in other templates that extend it.
+```python
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'members',
+]
+```
 
-### Template Inheritance:
+### Step 5: Run Migrations
 
-6. **Use Template Inheritance:**
-   Templates can inherit from a base template using the `{% extends %}` tag. For example:
+5.1 In the terminal, while in the `p4n` project directory, run the following command to apply migrations:
 
-   ```html
-   <!-- templates/myapp/index.html -->
+```bash
+python manage.py migrate
+```
 
-   {% extends 'myapp/base.html' %}
+### Step 6: Start the Development Server
 
-   {% block title %}Home{% endblock %}
+6.1 In the same terminal, while in the `p4n` project directory, start the development server with the following command:
 
-   {% block content %}
-       <h1>Welcome to my site!</h1>
-   {% endblock %}
-   ```
+```bash
+python manage.py runserver
+```
 
-   In this case, `index.html` extends the `base.html` template and overrides the title and content blocks.
+### Step 7: View the Template in Your Browser
 
-### Static Files:
+7.1 Open your web browser and type `127.0.0.1:8000/members/` in the address bar.
 
-7. **Handle Static Files:**
-   To include static files (CSS, JavaScript, images), use the `{% static %}` tag. For example:
-
-   ```html
-   <!-- templates/myapp/index.html -->
-
-   <link rel="stylesheet" href="{% static 'css/style.css' %}">
-   ```
-
-   Make sure to configure your project to handle static files properly, including setting up the `STATICFILES_DIRS` and using the `{% load static %}` tag at the top of your template.
-
-These are just a few examples of what you can do with Django templates. They provide a powerful and flexible way to generate dynamic HTML content in your web applications.
+Congratulations! You've successfully created a Django project named `p4n` with a simple template. Feel free to explore more features and build upon this foundation for your Django application.
