@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>User Profiles</h1>
+
+{% for profile in profiles %}
+    <p>{{ profile.first_name }} {{ profile.last_name }} - {{ profile.email }}</p>
+{% endfor %}
+
+</body>
+</html>
