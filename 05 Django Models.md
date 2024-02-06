@@ -1,112 +1,183 @@
 # Django Models
 
-In Django, models are used to define the structure of your database tables and encapsulate the business logic associated with the data in your web application. Models are represented as Python classes that inherit from `django.db.models.Model`. Each attribute in the model class represents a field in the database table. Here's an overview of how Django models work:
 
-### Define a Model:
+### Create a Django Project and App with User Profiles
 
-1. **Create a Models File:**
-   Inside your Django app, create a file named `models.py` if it doesn't already exist.
+#### Step 1: Create a Django Project
 
-2. **Define a Model Class:**
-   In `models.py`, define a model class that inherits from `django.db.models.Model`. For example:
+1.1 Open your terminal or command prompt.
 
-   ```python
-   # models.py
+1.2 Navigate to the desired directory where you want to create your project.
 
-   from django.db import models
+1.3 Run the following command to create a new Django project named `p4n_profiles`:
 
-   class Book(models.Model):
-       title = models.CharField(max_length=100)
-       author = models.CharField(max_length=50)
-       published_date = models.DateField()
+```bash
+django-admin startproject p4n_profiles
+```
 
-       def __str__(self):
-           return self.title
-   ```
+1.4 Change into the project directory:
 
-   In this example, a `Book` model is defined with three fields: `title`, `author`, and `published_date`.
+```bash
+cd p4n_profiles
+```
 
-### Run Migrations:
+#### Step 2: Create a Django App
 
-3. **Run Initial Migrations:**
-   After defining the model, run the following commands to create the initial database schema:
+2.1 Inside the `p4n_profiles` project directory, run the following command to create a new Django app named `members`:
 
-   ```bash
-   python manage.py makemigrations
-   python manage.py migrate
-   ```
+```bash
+python manage.py startapp members
+```
 
-   This creates the necessary database tables based on your model definitions.
+#### Step 3: Add App to `INSTALLED_APPS`
 
-### Use the Model in Views or Shell:
+3.1 Open the `settings.py` file inside the `p4n_profiles` project directory.
 
-4. **Interact with the Model in Views or Shell:**
-   You can now use the model in your views or the Django shell. For example:
+3.2 Locate the `INSTALLED_APPS` list and add `'members'` to it:
 
-   ```python
-   # views.py
+```python
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'members',
+]
+```
 
-   from django.shortcuts import render
-   from .models import Book
+#### Step 4: Define a Model
 
-   def book_list(request):
-       books = Book.objects.all()
-       return render(request, 'book_list.html', {'books': books})
-   ```
+4.1 Open the `models.py` file inside the `members` app.
 
-   In this example, a view function retrieves all books from the database and passes them to a template for rendering.
+4.2 Import necessary modules:
 
-### Create Admin Interface (Optional):
+```python
+from django.db import models
+```
 
-5. **Register Model with Admin Interface (Optional):**
-   If you want to manage your models using the Django admin interface, register the model in the `admin.py` file of your app:
+4.3 Define a simple `UserProfile` model with fields such as `first_name`, `last_name`, and `email`:
 
-   ```python
-   # admin.py
+```python
+class UserProfile(models.Model):
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    email = models.EmailField(unique=True)
 
-   from django.contrib import admin
-   from .models import Book
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
+```
 
-   admin.site.register(Book)
-   ```
+#### Step 5: Make Migrations
 
-   This allows you to add, edit, and delete model instances through the admin interface.
+5.1 Open your terminal in the project directory (`p4n_profiles`).
 
-### Querying and Filtering:
+5.2 Run the following command to create migrations based on your model changes:
 
-6. **Querying and Filtering:**
-   You can use Django's QuerySet API to query and filter data in the database. For example:
+```bash
+python manage.py makemigrations
+```
 
-   ```python
-   # views.py
+5.3 Apply the migrations:
 
-   def recent_books(request):
-       recent_books = Book.objects.filter(published_date__gte='2022-01-01')
-       return render(request, 'recent_books.html', {'recent_books': recent_books})
-   ```
+```bash
+python manage.py migrate
+```
 
-   This example retrieves books published after a certain date.
+#### Step 6: Run Initial Server
 
-### Model Relationships (Optional):
+6.1 Start the development server:
 
-7. **Define Model Relationships (Optional):**
-   Models can have relationships such as ForeignKey, OneToOneField, and ManyToManyField. For example:
+```bash
+python manage.py runserver
+```
 
-   ```python
-   # models.py
+6.2 Open your web browser and go to `127.0.0.1:8000` to check if the project is running.
 
-   class Author(models.Model):
-       name = models.CharField(max_length=50)
+#### Step 7: Create Views
 
-   class Book(models.Model):
-       title = models.CharField(max_length=100)
-       author = models.ForeignKey(Author, on_delete=models.CASCADE)
-       published_date = models.DateField()
+7.1 Open the `views.py` file in the `members` app.
 
-       def __str__(self):
-           return self.title
-   ```
+7.2 Use the `UserProfile` model in your views to interact with the database. For example, you can query and display user profiles:
 
-   Here, the `Book` model has a ForeignKey relationship with the `Author` model.
+```python
+from django.shortcuts import render
+from .models import UserProfile
 
-These are the basic steps to define and use models in a Django application. Models are a fundamental part of Django's object-relational mapping (ORM) system, allowing you to interact with your database using high-level Python code.
+def display_profiles(request):
+    profiles = UserProfile.objects.all()
+    return render(request, 'members/profile_list.html', {'profiles': profiles})
+```
+
+#### Step 8: Create Templates
+
+8.1 Create a new folder named `templates` inside the `members` app.
+
+8.2 Inside the `templates` folder, create a new HTML file named `profile_list.html`:
+
+```html
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>User Profiles</h1>
+
+{% for profile in profiles %}
+    <p>{{ profile.first_name }} {{ profile.last_name }} - {{ profile.email }}</p>
+{% endfor %}
+
+</body>
+</html>
+```
+
+#### Step 9: Create Superuser
+
+9.1 Run the following command to create a superuser:
+
+```bash
+python manage.py createsuperuser
+```
+
+9.2 Follow the prompts to enter a username, email, and password for the superuser.
+
+9.3 Use the superuser credentials to log in to the Django admin panel at `127.0.0.1:8000/admin/`.
+
+#### Step 10: Update URLs
+
+10.1 Create a `urls.py` file inside the `members` app.
+
+10.2 Define a URL pattern to link to the `display_profiles` view:
+
+```python
+from django.urls import path
+from .views import display_profiles
+
+urlpatterns = [
+    path('profiles/', display_profiles, name='profile_list'),
+]
+```
+
+10.3 Configure project URLs by updating the `urls.py` file in the `p4n_profiles` project:
+
+```python
+from django.contrib import admin
+from django.urls import include, path
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('members/', include('members.urls')),
+]
+```
+
+#### Step 11: Run Server and View Profiles
+
+11.1 Start the development server:
+
+```bash
+python manage.py runserver
+```
+
+11.2 Open your web browser and go to `127.0.0.1:8000/members/profiles/` to view the user profiles.
+
+By following these steps, you should have successfully created a Django project
