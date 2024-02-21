@@ -1,21 +1,12 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Employee Form</title>
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Optional Bootstrap theme -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap-theme.min.css">
-    <style>
-        /* Custom CSS for adjusting label width */
-        .form-group label {
-            width: 150px; /* Adjust as needed */
-            text-align: right;
-            margin-bottom: 0;
-            padding-right: 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
 </head>
 <body>
     <div class="container mt-5">
