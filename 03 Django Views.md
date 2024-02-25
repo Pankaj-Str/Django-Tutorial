@@ -1,6 +1,6 @@
 # Django Views 
 
-In Django, views are Python functions or classes that handle HTTP requests and return HTTP responses. Views are responsible for processing user input, interacting with models (if necessary), and rendering the appropriate templates. Here's how you can create views in a Django app:
+
 
 ### Function-Based Views:
 

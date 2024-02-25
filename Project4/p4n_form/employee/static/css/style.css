@@ -1,0 +1,10 @@
+        /* Custom CSS for adjusting label width */
+        .form-group label {
+            width: 150px; /* Adjust as needed */
+            text-align: right;
+            margin-bottom: 0;
+            padding-right: 10px;
+        }
+        body{
+            background-color: aqua;
+        }

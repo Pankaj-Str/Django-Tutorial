@@ -1,0 +1,2 @@
+# Django CRUD Example Apps
+
