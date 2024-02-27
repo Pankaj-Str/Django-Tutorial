@@ -1,5 +1,5 @@
 <!doctype html>
-{% load static %}
+<!-- {% load static %} -->
 <html lang="en">
   <head>
     <title>Home</title>
@@ -12,18 +12,18 @@
   </head>
   <body>
     <div class="container text-white">
-      <form  action="{% url 'EmpSearchView' %}" method="get">
+      <form  action="{% url 'search_emp' %}" method="get">
         {% csrf_token %}
         <input type="text" name="q" placeholder="Search Blog">
         <button type="submit" >Search</button>
       </form>
       <h1>The posts are:</h1>
-      {% for post in posts %}
+      {% for emp in emps %}
         <div class="col-md-8 mt-4 mb-4">
           <div></div>
           <h3>{{emp.emp_name}}</h3>
           <p>{{emp.join_date}}</p>
-          <a href="{% url 'EmpDetailView' pk=post.id %}" class="btn btn-sm btn-primary">Read More</a>
+          <a href="{% url 'emp_detail' pk=post.id %}" class="btn btn-sm btn-primary">Read More</a>
         </div>
       {% endfor %}
     </div>

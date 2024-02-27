@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 
 class EmpData(models.Model):
-    emp_name = models.CharField(max_lenght=150)
+    emp_name = models.CharField(max_length=150)
     join_date = models.DateTimeField(auto_now_add=True)
     description = models.CharField(max_length=558)
 

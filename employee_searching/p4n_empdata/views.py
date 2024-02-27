@@ -6,7 +6,7 @@ class Emp_indexView(ListView):
     model = EmpData
     template_name = 'employee.html'
     queryset = EmpData.objects.all()
-    context_object_name = 'emp'
+    context_object_name = 'emps'
 
 class EmpDetailView(DetailView):
     model = EmpData
@@ -16,7 +16,7 @@ class EmpDetailView(DetailView):
 class EmpSearchView(ListView):
     model = EmpData
     template_name = 'employee.html'
-    context_object_name = 'emp'
+    context_object_name = 'emps'
 
     def get_queryset(self):
         query = self.request.GET.get('q')
