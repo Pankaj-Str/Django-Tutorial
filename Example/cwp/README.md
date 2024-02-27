@@ -126,9 +126,19 @@
    ```
 
    This step ensures that Django recognizes your app and includes it in various processes, including URL routing and database migrations.
+8. add in Admin.py
+   ```python
+   from django.contrib import admin
+   
+   # Register your models here.
+   
+   from django.contrib import admin
+   from .models import MyModel
+   
+   admin.site.register(MyModel)
+   ```
 
-
-8. **Run Migrations:**
+9. **Run Migrations:**
    Run Django migrations to create the database table:
 
    ```bash
@@ -136,7 +146,7 @@
    python manage.py migrate
    ```
 
-9. **Run the Development Server:**
+10. **Run the Development Server:**
    Start the development server:
 
    ```bash
