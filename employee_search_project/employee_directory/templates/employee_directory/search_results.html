@@ -1,0 +1,8 @@
+<h1>Search Results for "{{ search_query }}"</h1>
+<ul>
+    {% for employee in employees %}
+    <li>{{ employee.name }} - {{ employee.department }} - {{ employee.position }}</li>
+    {% empty %}
+    <li>No results found</li>
+    {% endfor %}
+</ul>
