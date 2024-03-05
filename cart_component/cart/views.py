@@ -37,3 +37,4 @@ def cart_view(request):
         'total_price': total_price
     }
     return render(request, 'cart/cart.html', context)
+
