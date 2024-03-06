@@ -3,9 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Shopping Cart</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Custom CSS */
+        body {
+            padding: 20px;
+        }
+        .remove-link {
+            color: red;
+        }
+    </style>
 </head>
 <body>
-    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h1 class="mt-5 mb-4">Shopping Cart</h1>
+                <ul class="list-group mb-4">
+                    {% for item in cart_items %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ item.product_name }} 
+                        <span class="badge bg-primary rounded-pill">Quantity: {{ item.quantity }}</span>
+                        <span class="badge bg-success rounded-pill">Price: ${{ item.price }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <p class="mb-4">Total Price: ${{ total_price }}</p>
+                <form action="{% url 'cart:add_to_cart' %}" method="post" class="mb-4">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="product_name" class="form-label">Product Name:</label>
+                        <input type="text" id="product_name" name="product_name" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="quantity" class="form-label">Quantity:</label>
+                        <input type="number" id="quantity" name="quantity" value="1" min="1" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Price:</label>
+                        <input type="number" id="price" name="price" step="0.01" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add to Cart</button>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <h2 class="mb-4">Remove Items from Cart:</h2>
+                <ul class="list-group mb-4">
+                    {% for item in cart_items %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ item.product_name }} 
+                        <span class="badge bg-primary rounded-pill">Quantity: {{ item.quantity }}</span>
+                        <span class="badge bg-success rounded-pill">Price: ${{ item.price }}</span>
+                        <a href="{% url 'cart:remove_from_cart' item.id %}" class="remove-link"><i class="fas fa-trash-alt"></i></a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
