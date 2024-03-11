@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Message App</title>
+</head>
+<body>
+    <h1 align="center">Create Message</h1>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <table align="center" border="1">
+            <tr>
+                <td>Enter Name</td>
+                <td><input type="text" placeholder="sender name" name="uname"></td>
+            </tr>
+            <tr>
+                <td>Email ID</td>
+                <td><input type="email" placeholder="sender email" name="uemail"></td>
+            </tr>
+            <tr>
+                <td>Mobile Number</td>
+                <td><input type="number" placeholder="sender contact" name="mobile"></td>
+            </tr>
+            <tr>
+                <td>Message</td>
+                <td><textarea name="msg" id="" cols="30" rows="10"></textarea></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="submit" value="Send">
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
+
+
+
