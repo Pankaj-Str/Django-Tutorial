@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+	
+{% block content %}
+<h1>My Posts</h1>
+	{% for post in posts %}
+		<h2>{{ post.title }}</h2>
+		<small>Published on {{ post.published_at | date:"M d, Y" }} by {{ post.author | title}}</small>
+		<p>{{ post.content }}</p>
+		<p>
+			<a href="{% url 'post-edit' post.id %}">Edit</a> 
+			<a href="{% url 'post-delete' post.id%}">Delete</a>
+		</p>
+	{% endfor %}
+{% endblock content %}

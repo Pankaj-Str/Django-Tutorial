@@ -1,0 +1,22 @@
+{%extends 'base.html'%}
+
+{%block content%}
+
+<div class="center">
+	<h2>My Todo List</h2>
+	{% if tasks %}
+	<ul class="tasks">
+		{% for task in tasks %}
+			<li><a href="{% url 'task' task.id %}" class="{% if task.completed%}completed{%endif%}">{{ task.title }}</a> 
+				 <div  class="task-controls">
+				 	<a href="{%url 'task-delete' task.id %}"><i class="bi bi-trash"></i> </a>
+					<a href="{%url 'task-update' task.id %}"><i class="bi bi-pencil-square"></i></a>
+		         </div>
+		    </li>
+		{% endfor %}
+	{% else %}
+		<p>🎉 Yay, you have no pending tasks! <a href="{%url 'task-create'%}">Create Task</a></p>
+	{% endif %}
+	</ul>
+</div>
+{%endblock content%}

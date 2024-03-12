@@ -1,0 +1,21 @@
+{%extends 'base.html'%}
+
+{%block content%}
+	<div class="center">
+	  <form method="post" novaldiate class="card">
+	  	{% csrf_token %}
+	    <h2 class="text-center">Create your account</h2>
+		{% for field in form %}
+	    		{{ field.label_tag }} 
+	        	{{ field }}
+	        	{% if field.errors %}
+	        		<small class="error">{{ field.errors|striptags  }}</small> 
+	        	{% endif %}
+		{% endfor %}
+		
+		<input type="submit" value="Register" class="btn btn-primary full-width">
+		<hr>
+		<p class="text-center">Already have an account? <a href="{% url 'login'%}">Login Here</a></p>
+		</form>
+	</div>
+{%endblock content%}
