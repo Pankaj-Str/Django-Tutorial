@@ -1,4 +1,4 @@
-### integrating Razorpay into a Django project for accepting payments:
+### Integrating Razorpay into a Django project for accepting payments:
 
 ### Step 1: Initiate the Django Project
 
