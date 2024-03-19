@@ -1,0 +1,6 @@
+<form action="{% url 'initiate_payment' %}" method="post">
+    {% csrf_token %}
+    <label for="amount">Enter Amount (INR):</label>
+    <input type="text" id="amount" name="amount" required>
+    <button type="submit">Pay Now</button>
+</form>

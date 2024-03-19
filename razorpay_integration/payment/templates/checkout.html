@@ -1,0 +1,21 @@
+<h1>Payment Details</h1>
+<p>Amount: {{ payment.amount / 100 }}</p>
+<p>Currency: {{ payment.currency }}</p>
+<p>Order ID: {{ payment.id }}</p>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<form action="{% url 'complete_payment' %}" method="post">
+    {% csrf_token %}
+    <script
+        src="https://checkout.razorpay.com/v1/checkout.js"
+        data-key="{{ payment.key_id }}"
+        data-amount="{{ payment.amount }}"
+        data-currency="INR"
+        data-order_id="{{ payment.id }}"
+        data-buttontext="Pay with Razorpay"
+        data-name="My Django Shop"
+        data-description="Complete your payment"
+        data-prefill.name="Your Name"
+        data-prefill.email="your@example.com"
+        data-theme.color="#F37254"
+    ></script>
+</form>
