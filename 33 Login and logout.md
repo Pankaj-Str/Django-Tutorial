@@ -1,4 +1,4 @@
-Implement a Django login and logout system.
+# Implement a Django login and logout system.
 
 ### Prerequisites
 - Python and Django installed.
