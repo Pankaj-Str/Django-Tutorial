@@ -205,8 +205,15 @@ urlpatterns = [
     path('members/', include('members.urls')),
 ]
 ```
+#### Step 11 : add Admin.py 
+```python
+from django.contrib import admin
+from .models import UserProfile
 
-#### Step 11: Run Server and View Profiles
+admin.site.register(UserProfile)
+
+```
+#### Step 12: Run Server and View Profiles
 
 11.1 Start the development server:
 
