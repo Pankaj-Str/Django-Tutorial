@@ -15,9 +15,11 @@
             margin-bottom: 0;
             padding-right: 10px;
         }
+      
     </style>
 </head>
 <body>
+     {% include "header.html" %}
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-6 offset-md-3">
@@ -59,7 +61,7 @@
                             </div>
                         </form>
                         <br>
-                        <a href="{% url 'home' %}"><button>View Employee Data</button></a>
+                        <a href="{% url 'home' %}"><button class="btn btn-primary btn-block">View Employee Data</button></a>
                     </div>
                 </div>
             </div>
